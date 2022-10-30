@@ -20,24 +20,8 @@ function AllTasks(props) {
 	console.log("tasks", tasks);
 	return (
 		<div>
-			<AppBar position="sticky" sx={{ backgroundColor: "#FFD5CC" }}>
-				<Toolbar>
-					<Typography
-						variant="h6"
-						component="div"
-						sx={{ flexGrow: 1, color: "black" }}
-					>
-						Project Task List
-					</Typography>
-					<Tooltip title="Add new task" arrow>
-						<Button>
-							<AddTaskIcon></AddTaskIcon>
-						</Button>
-					</Tooltip>
-				</Toolbar>
-			</AppBar>
-
-			<div className="status-tasks">
+			<div className="status-tasks margin-left" >
+				
 				<Column filter="Not Started" tasks={tasks} labelColor="#C70039" />
 				<Column filter="In Progress" tasks={tasks} labelColor="#FF5733" />
 				<Column filter="In Testing" tasks={tasks} labelColor="#FFC300" />
