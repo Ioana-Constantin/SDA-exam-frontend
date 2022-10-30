@@ -1,17 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
 import { Chip } from "@mui/material";
-
+import IssueModal from "../modal/IssueModal";
+import { Task } from "@mui/icons-material";
 
 export default function Issue(props) {
+	console.log("props in Issue", props);
 	// const [status, setStatus] = React.useState(props.status);
+	const [open, setOpen] = useState(false);
 
-	// const handleStatusChange = (event) => {
-	// 	setStatus(event.target.value);
-	// };
+	const showTaskDetails = () => {
+		setOpen(true);
+	};
+
 	const getColorDept = (dept) => {
 		switch (dept) {
 			case "Prod":
@@ -29,24 +33,26 @@ export default function Issue(props) {
 	const selectDept = () => {
 		return props.department.map((dept) => (
 			<Chip
-      sx={{backgroundColor: getColorDept(dept)}}
+				sx={{ backgroundColor: getColorDept(dept) }}
 				key={props.id + dept}
-				label={dept}size="small"
-
+				label={dept}
+				size="small"
 			/>
 		));
 	};
 
 	return (
 		<div>
+			<IssueModal open={open} setOpen={setOpen} task={props} />
 			<Card
 				sx={{
 					// maxWidth: "250px",
 					border: "solid 1px ligth-grey",
 					boxShadow: 3,
-          marginTop: 1,
-          marginBottom: 4
+					marginTop: 1,
+					marginBottom: 4,
 				}}
+				onClick={showTaskDetails}
 			>
 				<CardContent>
 					{selectDept()}
