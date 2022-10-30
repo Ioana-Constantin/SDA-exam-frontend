@@ -41,7 +41,7 @@ const IssueModal = (props) => {
 				<Typography id="modal-modal-description" sx={{ mt: 2 }}>
 					Assignee: {props.task.assignee}
 				</Typography>
-				<Typography id="modal-modal-description" sx={{ mt: 2 }}>
+				<Typography id="modal-modal-description">
 					Details: {props.task.details}
 				</Typography>
 				<Button onClick={handleClose} sx={button}>

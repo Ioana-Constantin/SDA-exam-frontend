@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getAllTasks } from "../../services/TaskService";
 import Column from "../column/Column";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import AddTaskIcon from "@mui/icons-material/AddTask";
-import { Tooltip } from "@mui/material";
 
 function AllTasks(props) {
 	const [tasks, setTasks] = useState([]); //hook initializat cu array gol

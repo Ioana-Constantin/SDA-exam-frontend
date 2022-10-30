@@ -5,7 +5,7 @@ import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
 import { Chip } from "@mui/material";
 import IssueModal from "../modal/IssueModal";
-import { Task } from "@mui/icons-material";
+
 
 export default function Issue(props) {
 	console.log("props in Issue", props);
@@ -46,11 +46,12 @@ export default function Issue(props) {
 			<IssueModal open={open} setOpen={setOpen} task={props} />
 			<Card
 				sx={{
-					// maxWidth: "250px",
+					maxWidth: "350px",
 					border: "solid 1px ligth-grey",
 					boxShadow: 3,
 					marginTop: 1,
 					marginBottom: 4,
+					columnWidth: 400,
 				}}
 				onClick={showTaskDetails}
 			>
@@ -58,7 +59,7 @@ export default function Issue(props) {
 					{selectDept()}
 
 					<Typography variant="body2" color="text.secondary">
-						{props.title}
+						<h2>{props.title}</h2>
 					</Typography>
 					<Typography paragraph>Assigned to: {props.assignee}</Typography>
 					<Typography paragraph>Status: {props.status}</Typography>
