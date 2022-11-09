@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { getAllTasks } from "../../services/TaskService";
 import Column from "../column/Column";
+import CreateNewTaskModal from "../modal/CreateNewTaskModal";
+import Tooltip from "@mui/material/Tooltip";
 
 function AllTasks(props) {
 	const [tasks, setTasks] = useState([]); //hook initializat cu array gol
@@ -13,9 +15,14 @@ function AllTasks(props) {
 
 	console.log("tasks", tasks);
 	return (
-		<div>
-			<div className="status-tasks margin-left" >
-				
+		<div className="margin-left">
+			<div>
+				<Tooltip title="Add" arrow> 
+					<CreateNewTaskModal />
+				</Tooltip>
+			</div>
+
+			<div className="status-tasks">
 				<Column filter="Not Started" tasks={tasks} labelColor="#C70039" />
 				<Column filter="In Progress" tasks={tasks} labelColor="#FF5733" />
 				<Column filter="In Testing" tasks={tasks} labelColor="#FFC300" />

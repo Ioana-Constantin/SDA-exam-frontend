@@ -52,6 +52,7 @@ export default function Issue(props) {
 					marginTop: 1,
 					marginBottom: 4,
 					columnWidth: 400,
+					backgroundColor:"#FBFAFA"
 				}}
 				onClick={showTaskDetails}
 			>
