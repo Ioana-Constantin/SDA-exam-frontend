@@ -8,8 +8,8 @@ import IssueModal from "../modal/IssueModal";
 
 
 export default function Issue(props) {
-	console.log("props in Issue", props);
-	// const [status, setStatus] = React.useState(props.status);
+	// console.log("props in Issue", props);
+	// const [status, setStatus] = useState(props.status);
 	const [open, setOpen] = useState(false);
 
 	const showTaskDetails = () => {

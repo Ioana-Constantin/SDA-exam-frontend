@@ -14,10 +14,20 @@ function AllTasks(props) {
 	}, []);
 
 	console.log("tasks", tasks);
+	
+	
 	return (
-		<div className="margin-left">
+		<div
+			className="margin-left"
+			style={{
+				backgroundImage: "url(http://localhost:3000/background.jpg)",
+				backgroundSize: "cover",
+				backgroundRepeat: "repeat",
+				height:1500,
+			}}
+		>
 			<div>
-				<Tooltip title="Add" arrow> 
+				<Tooltip title="Add" arrow>
 					<CreateNewTaskModal />
 				</Tooltip>
 			</div>

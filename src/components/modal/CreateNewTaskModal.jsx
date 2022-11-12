@@ -10,11 +10,12 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import InputLabel from "@mui/material/InputLabel";
-import FormControl from '@mui/material/FormControl';
+import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import "./CreateNewTaskModal.css";
 import dayjs from "dayjs";
+import * as UserService from "../../services/UserService";
 
 const style = {
 	position: "absolute",
@@ -49,11 +50,24 @@ const submitButton = {
 };
 
 const CreateNewTaskModal = () => {
+
 	const [open, setOpen] = useState(false);
-	const handleModalOpen = () => setOpen(true);
+	const [taskTitle, setTasktitle] = useState('');
+	const [users, setUsers] = useState([]);
+	const handleModalOpen = async () => {
+		let usersRes = await UserService.getAllUsers();
+		setUsers(usersRes);
+		setOpen(true);
+	};
+	const [day, setDay] = useState(dayjs(""));
 	const handleModalClose = () => setOpen(false);
 
-	const [day, setDay] = useState(dayjs(""));
+	const handleSubmitTask = async () => {
+		// let usersRes = await UserService.getAllUsers();
+		// setUsers(usersRes);
+		console.log('')
+		setOpen(false);
+	};
 	const handleDayChange = (newDay) => {
 		setDay(newDay);
 	};
@@ -63,31 +77,40 @@ const CreateNewTaskModal = () => {
 		setAssignee(event.target.value);
 	};
 
+	const populateUsersList = () => {
+		return users.map((user) => (
+			<MenuItem value={user.id}>
+				{user.first_name} {user.last_name}
+			</MenuItem>
+		));
+	};
 	return (
 		<div>
-			<Button onClick={handleModalOpen}> Add New Task
-				<AddTaskIcon sx={{ml:1}} />
+			<Button onClick={handleModalOpen}>
+				{" "}
+				Add New Task
+				<AddTaskIcon sx={{ ml: 1 }} />
 			</Button>
 
 			<Modal
 				open={open}
-				onClose={handleModalClose}
 				aria-labelledby="modal-modal-title"
 				aria-describedby="modal-modal-description"
 			>
 				<Box sx={style}>
-					<div className="modal-mb" >
+					<div className="modal-mb">
 						<TextField
-							className="allign-items" sx={{mb:2}}
+							className="allign-items"
+							sx={{ mb: 2 }}
 							required
 							id="outlined-required"
 							label="Enter a task name"
+							value={taskTitle}
 						></TextField>
 						<Divider />
-						<LocalizationProvider dateAdapter={AdapterDayjs} >
+						<LocalizationProvider dateAdapter={AdapterDayjs}>
 							<DesktopDatePicker
 								className="allign-items"
-								
 								label="Set due date"
 								inputFormat="DD/MM/YYYY"
 								value={day}
@@ -95,27 +118,24 @@ const CreateNewTaskModal = () => {
 								renderInput={(params) => <TextField {...params} />}
 							/>
 						</LocalizationProvider>
-							<FormControl className="max-width allign-items" sx={{mt:2}}>
-								<InputLabel id="demo-simple-select-label">Assignee</InputLabel>
-								<Select
-									labelId="demo-simple-select-label"
-									id="demo-simple-select"
-									value={assignee}
-									label="Assignee"
-									onChange={handleAssigneeChange}
-								>
-								<MenuItem value={10}>Ten</MenuItem>
-								<MenuItem value={20}>Twenty</MenuItem>
-								<MenuItem value={30}>Thirty</MenuItem> 
-									
-								</Select>
-							</FormControl>
+						<FormControl className="max-width allign-items" sx={{ mt: 2 }}>
+							<InputLabel id="demo-simple-select-label">Assignee</InputLabel>
+							<Select
+								labelId="demo-simple-select-label"
+								id="demo-simple-select"
+								value={assignee}
+								label="Assignee"
+								onChange={handleAssigneeChange}
+							>
+								{populateUsersList()}
+							</Select>
+						</FormControl>
 
 						<Button onClick={handleModalClose} sx={button}>
 							<CancelPresentationIcon />
 						</Button>
 					</div>
-					<Button variant="contained" sx={submitButton}>
+					<Button onClick={handleSubmitTask} variant="contained" sx={submitButton}>
 						SUBMIT
 					</Button>
 				</Box>
