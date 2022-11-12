@@ -5,14 +5,17 @@ import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
 import { Chip } from "@mui/material";
 import IssueModal from "../modal/IssueModal";
-
+import * as UserService from "../../services/UserService";
 
 export default function Issue(props) {
 	// console.log("props in Issue", props);
 	// const [status, setStatus] = useState(props.status);
 	const [open, setOpen] = useState(false);
+	const [users, setUsers] = useState([]);
 
-	const showTaskDetails = () => {
+	const showTaskDetails = async () => {
+		let usersRes = await UserService.getAllUsers();
+		setUsers(usersRes);
 		setOpen(true);
 	};
 
@@ -43,7 +46,7 @@ export default function Issue(props) {
 
 	return (
 		<div>
-			<IssueModal open={open} setOpen={setOpen} task={props} />
+			<IssueModal open={open} setOpen={setOpen} task={props} users={users} />
 			<Card
 				sx={{
 					maxWidth: "350px",
@@ -52,14 +55,14 @@ export default function Issue(props) {
 					marginTop: 1,
 					marginBottom: 4,
 					columnWidth: 400,
-					backgroundColor:"#FBFAFA"
+					backgroundColor: "#FBFAFA",
 				}}
 				onClick={showTaskDetails}
 			>
 				<CardContent>
 					{selectDept()}
 
-					<Typography variant="body2" color="text.secondary">
+					<Typography color="text.secondary">
 						<h2>{props.title}</h2>
 					</Typography>
 					<Typography paragraph>Assigned to: {props.assignee}</Typography>

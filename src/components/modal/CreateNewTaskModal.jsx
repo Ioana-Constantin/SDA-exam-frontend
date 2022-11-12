@@ -16,6 +16,7 @@ import Select from "@mui/material/Select";
 import "./CreateNewTaskModal.css";
 import dayjs from "dayjs";
 import * as UserService from "../../services/UserService";
+import * as TaskService from "../../services/TaskService";
 
 const style = {
 	position: "absolute",
@@ -50,26 +51,35 @@ const submitButton = {
 };
 
 const CreateNewTaskModal = () => {
-
 	const [open, setOpen] = useState(false);
-	const [taskTitle, setTasktitle] = useState('');
+	const [taskTitle, setTaskTitle] = useState("");
 	const [users, setUsers] = useState([]);
+	const [day, setDay] = useState(dayjs(""));
+
+	const handleTaskTitle = (event) => {
+		setTaskTitle(event.target.value);
+	};
+
 	const handleModalOpen = async () => {
 		let usersRes = await UserService.getAllUsers();
 		setUsers(usersRes);
 		setOpen(true);
 	};
-	const [day, setDay] = useState(dayjs(""));
 	const handleModalClose = () => setOpen(false);
 
 	const handleSubmitTask = async () => {
-		// let usersRes = await UserService.getAllUsers();
-		// setUsers(usersRes);
-		console.log('')
+		let task = {
+			statusId: 1,
+			dueDate: day,
+			title: taskTitle,
+			userId: assignee,
+		};
+		await TaskService.createNewTask(task);
 		setOpen(false);
 	};
+
 	const handleDayChange = (newDay) => {
-		setDay(newDay);
+		setDay(dayjs(newDay).format("DD/MM/YYYY"));
 	};
 
 	const [assignee, setAssignee] = useState("");
@@ -106,6 +116,7 @@ const CreateNewTaskModal = () => {
 							id="outlined-required"
 							label="Enter a task name"
 							value={taskTitle}
+							onChange={handleTaskTitle}
 						></TextField>
 						<Divider />
 						<LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -135,7 +146,11 @@ const CreateNewTaskModal = () => {
 							<CancelPresentationIcon />
 						</Button>
 					</div>
-					<Button onClick={handleSubmitTask} variant="contained" sx={submitButton}>
+					<Button
+						onClick={handleSubmitTask}
+						variant="contained"
+						sx={submitButton}
+					>
 						SUBMIT
 					</Button>
 				</Box>
