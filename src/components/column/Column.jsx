@@ -46,7 +46,7 @@ function Column(props) {
 
 		return (
 			<div>
-				<Box sx={{ backgroundColor: props.labelColor, borderRadius: "10px" }}>
+				<Box sx={{ backgroundColor: props.labelColor, borderRadius: "10px", columnWidth: 350}}>
 					<Typography variant="h6" component="div" sx={{ textAlign: "center" }}>
 						{props.filter}
 					</Typography>

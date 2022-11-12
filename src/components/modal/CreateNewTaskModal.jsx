@@ -23,7 +23,7 @@ const style = {
 	top: "50%",
 	left: "50%",
 	transform: "translate(-50%, -50%)",
-	width: 350,
+	width: 400,
 	bgcolor: "#FBFAFA",
 	border: "2px solid #000",
 	boxShadow: 25,
@@ -110,18 +110,18 @@ const CreateNewTaskModal = () => {
 				<Box sx={style}>
 					<div className="modal-mb">
 						<TextField
-							className="allign-items"
-							sx={{ mb: 2 }}
+							className="allign-items max-width "
+							sx={{ mt:5, mb: 2 }}
 							required
 							id="outlined-required"
 							label="Enter a task name"
 							value={taskTitle}
 							onChange={handleTaskTitle}
 						></TextField>
-						<Divider />
+						{/* <Divider /> */}
 						<LocalizationProvider dateAdapter={AdapterDayjs}>
 							<DesktopDatePicker
-								className="allign-items"
+								className="allign-items max-width"
 								label="Set due date"
 								inputFormat="DD/MM/YYYY"
 								value={day}
