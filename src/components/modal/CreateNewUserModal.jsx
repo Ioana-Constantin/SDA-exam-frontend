@@ -69,10 +69,10 @@ const CreateNewUserModal = () => {
 
 	return (
 		<div>
-			<Button onClick={handleModalOpen}>
+			<Button onClick={handleModalOpen} sx={{color:"black", bgcolor: "darkgrey", mb:2}}>
 				{" "}
+				<PersonAdd sx={{ m: 1 }} />
 				Add New User
-				<PersonAdd sx={{ ml: 1 }} />
 			</Button>
 
 			<Modal

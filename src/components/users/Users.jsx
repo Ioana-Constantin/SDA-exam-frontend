@@ -28,14 +28,21 @@ const Users = () => {
 	}));
 
 	return (
-		<div className="margin-left">
+		<div
+			className="margin-left"
+			style={{
+				backgroundImage: "url(http://localhost:3000/background.jpg)",
+				backgroundSize: "cover",
+				height: "100vh",
+			}}
+		>
 			<div>
 				<Tooltip title="Add" arrow>
 					<CreateNewUserModal />
 				</Tooltip>
 			</div>
-			<TableContainer component={Paper}>
-				<Table sx={{ minWidth: 650 }} aria-label="simple table">
+			<TableContainer component={Paper} sx={{maxWidth: 1000}}>
+				<Table sx={{ minWidth: 650}} aria-label="simple table">
 					<TableHead>
 						<TableRow>
 							<TableCell>First Name</TableCell>
@@ -54,7 +61,7 @@ const Users = () => {
 								<TableCell component="th" scope="row">
 									{row.firstName}
 								</TableCell>
-								<TableCell align="right">{row.lastName}</TableCell>
+								<TableCell align="right">{row.lastName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TableCell>
 								<TableCell align="right">
 									<EditUserModal user={row} />
 								</TableCell>

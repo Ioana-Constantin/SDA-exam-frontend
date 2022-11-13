@@ -7,6 +7,7 @@ import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
 import { TextField } from "@mui/material";
 import "./CreateNewTaskModal.css";
 import * as DepartmentService from "../../services/DepartmentService";
+import Colorful from "@uiw/react-color-colorful";
 
 const style = {
 	position: "absolute",
@@ -43,15 +44,14 @@ const submitButton = {
 const CreateNewDepartmentModal = () => {
 	const [open, setOpen] = useState(false);
 	const [description, setDescription] = useState("");
-	const [color, setColor] = useState("");
+	const [hex, setHex] = useState("#ffffff");
+
 
 	const handleDescription = (event) => {
 		setDescription(event.target.value);
 	};
 
-	const handleColor = (event) => {
-		setColor(event.target.value);
-	};
+	
 
 	const handleModalOpen = async () => {
 		setOpen(true);
@@ -61,7 +61,7 @@ const CreateNewDepartmentModal = () => {
 	const handleSubmitDepartment = async () => {
 		let department = {
 			description,
-			color,
+			color: hex,
 		};
 		await DepartmentService.createNewDepartment(department);
 		setOpen(false);
@@ -69,10 +69,10 @@ const CreateNewDepartmentModal = () => {
 
 	return (
 		<div>
-			<Button onClick={handleModalOpen}>
+			<Button onClick={handleModalOpen} sx={{color:"black", bgcolor: "darkgrey", mb:2}}>
 				{" "}
+				<ApartmentIcon sx={{ m: 1 }} />
 				Add New Department
-				<ApartmentIcon sx={{ ml: 1 }} />
 			</Button>
 
 			<Modal
@@ -91,15 +91,19 @@ const CreateNewDepartmentModal = () => {
 							value={description}
 							onChange={handleDescription}
 						></TextField>
-						<TextField
-							className="allign-items max-width "
-							sx={{ mb: 2 }}
-							required
-							id="outlined-required"
-							label="Pick department's color"
-							value={color}
-							onChange={handleColor}
-						></TextField>
+						<div className="allign-items max-width" align="center">
+							<label>Enter department's color</label>
+							<Colorful
+								color={hex}
+								disableAlpha={true}
+								onChange={(color) => {
+									setHex(color.hexa);
+								}}
+							/>
+							<div style={{ background: hex, marginTop: 30, padding: 10 }}>
+								{hex}
+							</div>
+						</div>
 
 						<Button onClick={handleModalClose} sx={button}>
 							<CancelPresentationIcon />

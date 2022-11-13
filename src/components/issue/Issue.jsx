@@ -52,7 +52,7 @@ export default function Issue(props) {
 					border: "solid 1px ligth-grey",
 					boxShadow: 3,
 					marginTop: 1,
-					marginBottom: 4,
+					marginBottom: 2,
 					columnWidth: 400,
 					backgroundColor: "#FBFAFA",
 				}}

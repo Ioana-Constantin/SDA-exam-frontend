@@ -8,7 +8,11 @@ import Header from './components/header/Header';
 
 function App() {
   return (
-    <div>
+    <div style={{
+      backgroundImage: "url(http://localhost:3000/background.jpg)",
+      backgroundSize: "cover",
+      height: "100vh",
+    }}>
       <BrowserRouter>
         <Routes>
           <Route path="tasks" element={<div><Header /><SideBar /><AllTasks /></div>} />

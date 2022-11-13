@@ -29,13 +29,20 @@ const Departments = () => {
 	}));
 
 	return (
-		<div className="margin-left">
+		<div
+			className="margin-left"
+			style={{
+				backgroundImage: "url(http://localhost:3000/background.jpg)",
+				backgroundSize: "cover",
+				height: "100vh",
+			}}
+		>
 			<div>
 				<Tooltip title="Add" arrow>
 					<CreateNewDepartmentModal />
 				</Tooltip>
 			</div>
-			<TableContainer component={Paper}>
+			<TableContainer component={Paper} sx={{maxWidth: 1000}}>
 				<Table sx={{ minWidth: 650 }} aria-label="simple table">
 					<TableHead>
 						<TableRow>

@@ -136,7 +136,7 @@ const EditTaskModal = (props) => {
 				let matchingDept = allDepartments.filter(
 					(dept) => dept.description === el
 				);
-				ids.push(matchingDept[0].id);
+				ids.push(matchingDept[0]?.id);
 			});
 			await DepartmentService.assignDepartmentsToTask(ids, props.task.id);
 		}

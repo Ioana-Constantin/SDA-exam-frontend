@@ -97,10 +97,10 @@ const CreateNewTaskModal = () => {
 	};
 	return (
 		<div>
-			<Button onClick={handleModalOpen}>
+			<Button onClick={handleModalOpen} sx={{color:"black", bgcolor: "darkgrey", mb:2}}>
 				{" "}
+				<AddTaskIcon sx={{ m: 1 }} />
 				Add New Task
-				<AddTaskIcon sx={{ ml: 1 }} />
 			</Button>
 
 			<Modal

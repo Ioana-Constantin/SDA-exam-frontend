@@ -25,7 +25,7 @@ const style = {
 const submitButton = {
 	position: "absolute",
 	bottom: 8,
-	right: 128,
+	right: 24,
 	color: "black",
 	backgroundColor: "darkgrey",
 };

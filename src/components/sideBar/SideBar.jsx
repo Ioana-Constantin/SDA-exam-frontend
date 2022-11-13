@@ -23,7 +23,7 @@ function SideBar() {
 					"& .MuiDrawer-paper": {
 						width: drawerWidth,
 						boxSizing: "border-box",
-						marginTop: 9,
+						marginTop: "64px",
 					},
 				}}
 				variant="permanent"

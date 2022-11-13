@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 
 function Header() {
 	return (
-		<AppBar position="sticky" sx={{ backgroundColor: "#FFD5CC" }}>
+		<AppBar position="sticky" sx={{ backgroundColor: "#fdc7c1ff" }}>
 			<Toolbar>
 				<Typography
 					variant="h6"
@@ -14,19 +14,6 @@ function Header() {
 				>
 					Project Task List
 				</Typography>
-				{/* <Tooltip title="Add" arrow>
-					<CreateNewTaskModal />
-				</Tooltip> */}
-				{/* <Tooltip title="Edit" arrow>
-					<Button>
-						<EditIcon></EditIcon>
-					</Button>
-				</Tooltip>
-				<Tooltip title="Delete" arrow>
-					<Button>
-						<RemoveCircleIcon></RemoveCircleIcon>
-					</Button>
-				</Tooltip> */}
 			</Toolbar>
 		</AppBar>
 	);

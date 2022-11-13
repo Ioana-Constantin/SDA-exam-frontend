@@ -25,7 +25,7 @@ const style = {
 const submitButton = {
 	position: "absolute",
 	bottom: 8,
-	right: 128,
+	right: 24,
 	color: "black",
 	backgroundColor: "darkgrey",
 };
@@ -40,16 +40,12 @@ const button = {
 const EditUserModal = (props) => {
 	const [open, setOpen] = useState(false);
 	const [description, setDescription] = useState(props.department.description);
-	const [color, setColor] = useState(props.department.color);
 	const [hex, setHex] = useState(props.department.color);
 
 	const handleDescription = (event) => {
 		setDescription(event.target.value);
 	};
 
-	const handleColor = (event) => {
-		setColor(event.target.value);
-	};
 
 	const handleModalOpen = async () => {
 		setOpen(true);
@@ -63,7 +59,6 @@ const EditUserModal = (props) => {
 		};
 		await DepartmentService.editDepartment(department, props.department.id);
 		setDescription("");
-		setColor("");
 		setOpen(false);
 	};
 
