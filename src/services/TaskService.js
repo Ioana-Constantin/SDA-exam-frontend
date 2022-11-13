@@ -3,7 +3,6 @@ export async function getAllTasks() {
     // console.log("response", response);
     return await response.json();
 }
-
 export async function createNewTask(data) {
     const response = await fetch('http://localhost:8000/tasks', {
         method: 'POST',

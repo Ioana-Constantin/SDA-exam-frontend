@@ -1,48 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
 import { Chip } from "@mui/material";
-import IssueModal from "../modal/IssueModal";
+import EditTaskModal from "../modal/EditTaskModal";
 import * as UserService from "../../services/UserService";
 import * as DepartmentService from "../../services/DepartmentService";
 
 export default function Issue(props) {
-	// console.log("props in Issue", props);
-	// const [status, setStatus] = useState(props.status);
 	const [open, setOpen] = useState(false);
 	const [users, setUsers] = useState([]);
-	const [departments, setDepartments] = useState([]);
+
+	const [departments, setDepartments] = useState([]); //hook initializat cu array gol
+
+	useEffect(() => {
+		DepartmentService.getAllDepartments()
+			.then((response) => setDepartments(response))
+			.catch((err) => console.error(err));
+	}, []);
 
 	const showTaskDetails = async () => {
 		let usersRes = await UserService.getAllUsers();
-		let departmentsRes = await DepartmentService.getAllDepartments();
 		setUsers(usersRes);
-		setDepartments(departmentsRes);
 		setOpen(true);
 	};
 
-	const getColorDept = (dept) => {
-		switch (dept) {
-			case "Prod":
-				return "#5B7CDE";
-			case "Approvals":
-				return "#DE5BBD";
-			case "QA":
-				return "#DEBD5B";
-			case "DevOps":
-				return "#5BDE7B";
-			default:
-				return "#BA55D3";
-		}
-	};
-	const selectDept = () => {
-		return props.department.map((dept) => (
+	const selectedDepartments = () => {
+		console.log(
+			"props.departmentprops.departmentprops.department",
+			props.department
+		);
+		let finalDepartments = [];
+		departments.forEach((el) => {
+			if (props.department.includes(el.description)) {
+				finalDepartments.push(el);
+			}
+		});
+		return finalDepartments.map((dept) => (
 			<Chip
-				sx={{ backgroundColor: getColorDept(dept) }}
-				key={props.id + dept}
-				label={dept}
+				sx={{ backgroundColor: dept.color }}
+				key={dept.id + dept.description}
+				label={dept.description}
 				size="small"
 			/>
 		));
@@ -50,13 +49,7 @@ export default function Issue(props) {
 
 	return (
 		<div>
-			<IssueModal
-				open={open}
-				setOpen={setOpen}
-				task={props}
-				users={users}
-				departments={departments}
-			/>
+			<EditTaskModal open={open} setOpen={setOpen} task={props} users={users} />
 			<Card
 				sx={{
 					maxWidth: "350px",
@@ -70,7 +63,7 @@ export default function Issue(props) {
 				onClick={showTaskDetails}
 			>
 				<CardContent>
-					{selectDept()}
+					{selectedDepartments()}
 					<Typography color="text.secondary">
 						<h2>{props.title}</h2>
 					</Typography>

@@ -14,9 +14,10 @@ import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import "./CreateNewTaskModal.css";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import * as UserService from "../../services/UserService";
 import * as TaskService from "../../services/TaskService";
+import { Today } from "@mui/icons-material";
 
 const style = {
 	position: "absolute",
@@ -79,7 +80,7 @@ const CreateNewTaskModal = () => {
 	};
 
 	const handleDayChange = (newDay) => {
-		setDay(dayjs(newDay).format("DD/MM/YYYY"));
+		setDay(dayjs(newDay));
 	};
 
 	const [assignee, setAssignee] = useState("");

@@ -4,7 +4,7 @@ import Column from "../column/Column";
 import CreateNewTaskModal from "../modal/CreateNewTaskModal";
 import Tooltip from "@mui/material/Tooltip";
 
-function AllTasks(props) {
+function AllTasks() {
 	const [tasks, setTasks] = useState([]); //hook initializat cu array gol
 
 	useEffect(() => {
@@ -13,9 +13,6 @@ function AllTasks(props) {
 			.catch((err) => console.error(err));
 	}, []);
 
-	console.log("tasks", tasks);
-	
-	
 	return (
 		<div
 			className="margin-left"
@@ -23,7 +20,7 @@ function AllTasks(props) {
 				backgroundImage: "url(http://localhost:3000/background.jpg)",
 				backgroundSize: "cover",
 				backgroundRepeat: "repeat",
-				height:1500,
+				height: 1500,
 			}}
 		>
 			<div>

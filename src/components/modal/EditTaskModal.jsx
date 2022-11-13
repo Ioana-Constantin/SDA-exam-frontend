@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTheme } from "@mui/material/styles";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
-import Divider from "@mui/material/Divider";
-import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import InputLabel from "@mui/material/InputLabel";
 import Chip from "@mui/material/Chip";
 import MenuItem from "@mui/material/MenuItem";
@@ -20,7 +18,6 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import * as TaskService from "../../services/TaskService";
 import * as DepartmentService from "../../services/DepartmentService";
-
 const style = {
 	position: "absolute",
 	top: "50%",
@@ -77,8 +74,15 @@ function getStyles(name, personName, theme) {
 	};
 }
 
-const IssueModal = (props) => {
-	console.log("PROOOOOOOOOOOOOps", props);
+const EditTaskModal = (props) => {
+	console.log("props inside EDITTASKMODAL", props);
+	const [allDepartments, setAllDepartments] = useState([]); //hook initializat cu array gol
+
+	useEffect(() => {
+		DepartmentService.getAllDepartments()
+			.then((response) => setAllDepartments(response))
+			.catch((err) => console.error(err));
+	}, []);
 	const theme = useTheme();
 	const populateUsersList = () => {
 		return props.users.map((user) => (
@@ -100,9 +104,8 @@ const IssueModal = (props) => {
 
 	const handleDayChange = (newDay) => {
 		let dueDate = { dueDate: dayjs(newDay).format("DD/MM/YYYY") };
-		console.log("---------------duedate", dueDate);
 		setUpdatedTask((updatedTask) => ({ ...updatedTask, ...dueDate }));
-		setDay(dayjs(newDay).format("DD/MM/YYYY"));
+		setDay(dayjs(newDay));
 	};
 
 	const handleAssigneeChange = (event) => {
@@ -213,7 +216,7 @@ const IssueModal = (props) => {
 						)}
 						MenuProps={MenuProps}
 					>
-						{props.departments.map((department) => (
+						{allDepartments.map((department) => (
 							<MenuItem
 								key={department.id}
 								value={department.description}
@@ -253,4 +256,4 @@ const IssueModal = (props) => {
 	);
 };
 
-export default IssueModal;
+export default EditTaskModal;
