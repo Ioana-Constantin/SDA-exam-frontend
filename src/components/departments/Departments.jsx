@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllUsers } from "../../services/UserService";
+import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -11,20 +11,21 @@ import CreateNewDepartmentModal from "../modal/CreateNewDepartmentModal";
 import Tooltip from "@mui/material/Tooltip";
 
 import EditDepartmentModal from "../modal/EditDepartmentModal";
+import { getAllDepartments } from "../../services/DepartmentService";
 
 const Departments = () => {
-	const [users, setUsers] = useState([]); //hook initializat cu array gol
+	const [departments, setDepartments] = useState([]); //hook initializat cu array gol
 
 	useEffect(() => {
-		getAllUsers()
-			.then((response) => setUsers(response))
+		getAllDepartments()
+			.then((response) => setDepartments(response))
 			.catch((err) => console.error(err));
 	}, []);
 
-	const rows = users.map((user) => ({
-		id: user.id,
-		firstName: user.first_name,
-		lastName: user.last_name,
+	const rows = departments.map((dept) => ({
+		id: dept.id,
+		description: dept.description,
+		color: dept.color,
 	}));
 
 	return (
@@ -38,8 +39,8 @@ const Departments = () => {
 				<Table sx={{ minWidth: 650 }} aria-label="simple table">
 					<TableHead>
 						<TableRow>
-							<TableCell>First Name</TableCell>
-							<TableCell align="right">Last Name</TableCell>
+							<TableCell>Department description</TableCell>
+							<TableCell align="center">Background Color</TableCell>
 							<TableCell align="right">
 								Actions&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							</TableCell>
@@ -52,11 +53,13 @@ const Departments = () => {
 								sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
 							>
 								<TableCell component="th" scope="row">
-									{row.firstName}
+									{row.description}
 								</TableCell>
-								<TableCell align="right">{row.lastName}</TableCell>
+								<TableCell align="center">
+									<Box bgcolor={row.color} sx={{ height: 20 }}></Box>
+								</TableCell>
 								<TableCell align="right">
-									<EditDepartmentModal user={row} />
+									<EditDepartmentModal department={row} />
 								</TableCell>
 							</TableRow>
 						))}

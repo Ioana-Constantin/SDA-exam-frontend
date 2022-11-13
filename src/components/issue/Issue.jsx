@@ -27,10 +27,6 @@ export default function Issue(props) {
 	};
 
 	const selectedDepartments = () => {
-		console.log(
-			"props.departmentprops.departmentprops.department",
-			props.department
-		);
 		let finalDepartments = [];
 		departments.forEach((el) => {
 			if (props.department.includes(el.description)) {

@@ -6,7 +6,7 @@ import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
 import TextField from "@mui/material/TextField";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Alert from "@mui/material/Alert";
+import Colorful from "@uiw/react-color-colorful";
 import * as DepartmentService from "../../services/DepartmentService";
 
 const style = {
@@ -39,15 +39,16 @@ const button = {
 
 const EditUserModal = (props) => {
 	const [open, setOpen] = useState(false);
-	const [firstName, setFirstName] = useState(props.user.firstName);
-	const [lastName, setLastName] = useState(props.user.lastName);
+	const [description, setDescription] = useState(props.department.description);
+	const [color, setColor] = useState(props.department.color);
+	const [hex, setHex] = useState(props.department.color);
 
-	const handleFirstName = (event) => {
-		setFirstName(event.target.value);
+	const handleDescription = (event) => {
+		setDescription(event.target.value);
 	};
 
-	const handleLastName = (event) => {
-		setLastName(event.target.value);
+	const handleColor = (event) => {
+		setColor(event.target.value);
 	};
 
 	const handleModalOpen = async () => {
@@ -55,19 +56,19 @@ const EditUserModal = (props) => {
 	};
 	const handleModalClose = () => setOpen(false);
 
-	const handleSubmitUser = async () => {
-		let user = {
-			firstName,
-			lastName,
+	const handleSubmitDepartment = async () => {
+		let department = {
+			description,
+			color: hex,
 		};
-		await DepartmentService.editDepartment(user, props.user.id);
-		setFirstName("");
-		setLastName("");
+		await DepartmentService.editDepartment(department, props.department.id);
+		setDescription("");
+		setColor("");
 		setOpen(false);
 	};
 
-	const handleDeleteUser = async () => {
-		await DepartmentService.deleteDepartment(props.user.id);
+	const handleDeleteDepartment = async () => {
+		await DepartmentService.deleteDepartment(props.department.id);
 	};
 
 	return (
@@ -76,7 +77,7 @@ const EditUserModal = (props) => {
 				<BorderColorIcon />
 			</Button>
 			<Button>
-				<DeleteIcon onClick={() => handleDeleteUser()} />
+				<DeleteIcon onClick={() => handleDeleteDepartment()} />
 			</Button>
 			<Modal
 				open={open}
@@ -90,26 +91,29 @@ const EditUserModal = (props) => {
 							sx={{ mt: 5, mb: 2 }}
 							required
 							id="outlined-required"
-							label="Enter user's first name"
-							value={firstName}
-							onChange={handleFirstName}
+							label="Enter department's description"
+							value={description}
+							onChange={handleDescription}
 						></TextField>
-						<TextField
-							className="allign-items max-width "
-							sx={{ mb: 2 }}
-							required
-							id="outlined-required"
-							label="Enter user's last name"
-							value={lastName}
-							onChange={handleLastName}
-						></TextField>
-
+						<div className="allign-items max-width" align="center">
+							<label>Enter department's color</label>
+							<Colorful
+								color={hex}
+								disableAlpha={true}
+								onChange={(color) => {
+									setHex(color.hexa);
+								}}
+							/>
+							<div style={{ background: hex, marginTop: 30, padding: 10 }}>
+								{hex}
+							</div>
+						</div>
 						<Button onClick={handleModalClose} sx={button}>
 							<CancelPresentationIcon />
 						</Button>
 					</div>
 					<Button
-						onClick={handleSubmitUser}
+						onClick={handleSubmitDepartment}
 						variant="contained"
 						sx={submitButton}
 					>

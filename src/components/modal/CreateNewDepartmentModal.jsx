@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import PersonAdd from "@mui/icons-material/PersonAdd";
+import ApartmentIcon from "@mui/icons-material/Apartment";
 import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
 import { TextField } from "@mui/material";
 import "./CreateNewTaskModal.css";
-import * as UserService from "../../services/UserService";
+import * as DepartmentService from "../../services/DepartmentService";
 
 const style = {
 	position: "absolute",
@@ -40,17 +40,17 @@ const submitButton = {
 	backgroundColor: "darkgrey",
 };
 
-const CreateNewUserModal = () => {
+const CreateNewDepartmentModal = () => {
 	const [open, setOpen] = useState(false);
-	const [firstName, setFirstName] = useState("");
-	const [lastName, setLastName] = useState("");
+	const [description, setDescription] = useState("");
+	const [color, setColor] = useState("");
 
-	const handleFirstName = (event) => {
-		setFirstName(event.target.value);
+	const handleDescription = (event) => {
+		setDescription(event.target.value);
 	};
 
-	const handleLastName = (event) => {
-		setLastName(event.target.value);
+	const handleColor = (event) => {
+		setColor(event.target.value);
 	};
 
 	const handleModalOpen = async () => {
@@ -58,12 +58,12 @@ const CreateNewUserModal = () => {
 	};
 	const handleModalClose = () => setOpen(false);
 
-	const handleSubmitUser = async () => {
-		let user = {
-			firstName,
-			lastName,
+	const handleSubmitDepartment = async () => {
+		let department = {
+			description,
+			color,
 		};
-		await UserService.createNewUser(user);
+		await DepartmentService.createNewDepartment(department);
 		setOpen(false);
 	};
 
@@ -71,8 +71,8 @@ const CreateNewUserModal = () => {
 		<div>
 			<Button onClick={handleModalOpen}>
 				{" "}
-				Add New User
-				<PersonAdd sx={{ ml: 1 }} />
+				Add New Department
+				<ApartmentIcon sx={{ ml: 1 }} />
 			</Button>
 
 			<Modal
@@ -87,18 +87,18 @@ const CreateNewUserModal = () => {
 							sx={{ mt: 5, mb: 2 }}
 							required
 							id="outlined-required"
-							label="Enter user's first name"
-							value={firstName}
-							onChange={handleFirstName}
+							label="Enter new department's description"
+							value={description}
+							onChange={handleDescription}
 						></TextField>
 						<TextField
 							className="allign-items max-width "
 							sx={{ mb: 2 }}
 							required
 							id="outlined-required"
-							label="Enter user's last name"
-							value={lastName}
-							onChange={handleLastName}
+							label="Pick department's color"
+							value={color}
+							onChange={handleColor}
 						></TextField>
 
 						<Button onClick={handleModalClose} sx={button}>
@@ -106,7 +106,7 @@ const CreateNewUserModal = () => {
 						</Button>
 					</div>
 					<Button
-						onClick={handleSubmitUser}
+						onClick={handleSubmitDepartment}
 						variant="contained"
 						sx={submitButton}
 					>
@@ -118,4 +118,4 @@ const CreateNewUserModal = () => {
 	);
 };
 
-export default CreateNewUserModal;
+export default CreateNewDepartmentModal;

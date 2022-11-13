@@ -75,7 +75,6 @@ function getStyles(name, personName, theme) {
 }
 
 const EditTaskModal = (props) => {
-	console.log("props inside EDITTASKMODAL", props);
 	const [allDepartments, setAllDepartments] = useState([]); //hook initializat cu array gol
 
 	useEffect(() => {
@@ -132,11 +131,16 @@ const EditTaskModal = (props) => {
 
 	const handleEditTask = async () => {
 		if (departmentIds.length) {
-			await DepartmentService.assignDepartmentsToTask(
-				departmentIds,
-				props.task.id
-			);
+			let ids = [];
+			departmentIds.forEach((el) => {
+				let matchingDept = allDepartments.filter(
+					(dept) => dept.description === el
+				);
+				ids.push(matchingDept[0].id);
+			});
+			await DepartmentService.assignDepartmentsToTask(ids, props.task.id);
 		}
+
 		if (Object.keys(updatedTask).length) {
 			await TaskService.updateTask(updatedTask, props.task.id);
 		}
