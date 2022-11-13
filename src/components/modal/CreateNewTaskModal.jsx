@@ -4,7 +4,6 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import AddTaskIcon from "@mui/icons-material/AddTask";
 import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
-import Divider from "@mui/material/Divider";
 import { TextField } from "@mui/material";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -14,10 +13,10 @@ import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import "./CreateNewTaskModal.css";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import * as UserService from "../../services/UserService";
 import * as TaskService from "../../services/TaskService";
-import { Today } from "@mui/icons-material";
+
 
 const style = {
 	position: "absolute",
