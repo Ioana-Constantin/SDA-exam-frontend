@@ -68,10 +68,7 @@ const EditUserModal = (props) => {
 
 	const handleDeleteUser = async () => {
 		await UserService.deleteUser(props.user.id);
-		return (
-			<Alert severity="success">This is a success alert — check it out!</Alert>
-		);
-	};
+		};
 
 	return (
 		<div>
